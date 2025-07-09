@@ -7,7 +7,7 @@ from openai import AzureOpenAI
 # Environment variables
 endpoint = os.getenv("ENDPOINT_URL", "https://fadi-user28--resource.openai.azure.com/")
 deployment = os.getenv("DEPLOYMENT_NAME", "gpt-4.1-mini")
-subscription_key = os.getenv("AZURE_OPENAI_API_KEY", "REPLACE_WITH_YOUR_KEY_VALUE_HERE")
+subscription_key = os.getenv("AZURE_OPENAI_API_KEY", "3uz4y04LltIk1khjGwqnScRWR033A4saeE8GCKOKv9F16INO8ID0JQQJ99BGACYeBjFXJ3w3AAAAACOGCTo5")
 
 # Initialize Azure OpenAI client
 client = AzureOpenAI(
