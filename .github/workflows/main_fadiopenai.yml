@@ -1,4 +1,4 @@
-# Deploy Streamlit app with GPT to Azure App Service
+# Deploy Streamlit GPT app to Azure App Service
 
 name: Build and deploy Python app to Azure Web App - fadiopenai
 
@@ -21,7 +21,7 @@ jobs:
       - name: Set up Python version
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.11'  # Stable version
 
       - name: Create and activate virtual environment
         run: |
@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      # Optional: Run tests here
+      # ✅ Optional: Add tests here if needed
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
@@ -65,16 +65,18 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F75EDC77DA614C2FB021BDF7B051E21C }}
 
+      # ✅ NEW: Login to Azure for CLI commands
       - name: Azure Login for CLI
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      # ✅ NEW: Set Streamlit startup command
       - name: Set Streamlit startup command
         uses: azure/cli@v2
         with:
           inlineScript: |
             az webapp config set \
-              --resource-group <YOUR_RESOURCE_GROUP> \
+              --resource-group fadiopen_group \
               --name fadiopenai \
               --startup-file "streamlit run app.py --server.port 8000 --server.address 0.0.0.0"
